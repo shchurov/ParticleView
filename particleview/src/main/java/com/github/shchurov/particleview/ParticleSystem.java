@@ -8,6 +8,6 @@ public interface ParticleSystem {
 
     List<? extends Particle> getParticles();
 
-    void update();
+    void update(double timeDelta);
 
 }

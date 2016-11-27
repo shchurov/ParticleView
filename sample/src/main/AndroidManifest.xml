@@ -7,12 +7,22 @@
         android:label="@string/app_name"
         android:theme="@style/AppTheme">
 
-        <activity android:name="com.github.shchurov.particleview.sample.SampleActivity">
+        <activity
+            android:name="com.github.shchurov.particleview.sample.MainActivity"
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
+
+        <activity
+            android:name=".burst.BurstActivity"
+            android:screenOrientation="portrait"/>
+
+        <activity
+            android:name=".spinner.SpinnerActivity"
+            android:screenOrientation="portrait"/>
 
     </application>
 

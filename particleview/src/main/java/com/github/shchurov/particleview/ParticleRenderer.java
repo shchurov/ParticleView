@@ -2,7 +2,6 @@ package com.github.shchurov.particleview;
 
 
 import android.graphics.Bitmap;
-import android.opengl.GLES20;
 import android.opengl.GLSurfaceView;
 import android.opengl.GLUtils;
 import android.opengl.Matrix;
@@ -41,7 +40,9 @@ import static android.opengl.GLES20.glBindTexture;
 import static android.opengl.GLES20.glBlendFunc;
 import static android.opengl.GLES20.glClear;
 import static android.opengl.GLES20.glClearColor;
+import static android.opengl.GLES20.glCompileShader;
 import static android.opengl.GLES20.glCreateProgram;
+import static android.opengl.GLES20.glCreateShader;
 import static android.opengl.GLES20.glDisableVertexAttribArray;
 import static android.opengl.GLES20.glDrawElements;
 import static android.opengl.GLES20.glEnable;
@@ -50,6 +51,7 @@ import static android.opengl.GLES20.glGenTextures;
 import static android.opengl.GLES20.glGetAttribLocation;
 import static android.opengl.GLES20.glGetUniformLocation;
 import static android.opengl.GLES20.glLinkProgram;
+import static android.opengl.GLES20.glShaderSource;
 import static android.opengl.GLES20.glTexParameteri;
 import static android.opengl.GLES20.glUniform1i;
 import static android.opengl.GLES20.glUniformMatrix4fv;
@@ -58,6 +60,8 @@ import static android.opengl.GLES20.glVertexAttribPointer;
 import static android.opengl.GLES20.glViewport;
 
 class ParticleRenderer implements GLSurfaceView.Renderer {
+
+    private static final double NANOSECONDS = 1000000000;
 
     private volatile ParticleSystem particleSystem;
     private volatile boolean particleSystemNeedsSetup;
@@ -74,6 +78,7 @@ class ParticleRenderer implements GLSurfaceView.Renderer {
     private float[] textureCoordsCacheArray;
     private float[] textureCoordsArray;
     private FloatBuffer textureCoordsBuffer;
+    private long lastUpdateTime;
 
     private volatile boolean fpsLogEnabled;
     private long fps;
@@ -104,9 +109,9 @@ class ParticleRenderer implements GLSurfaceView.Renderer {
     }
 
     private int compileShader(int type, String shaderCode) {
-        int ref = GLES20.glCreateShader(type);
-        GLES20.glShaderSource(ref, shaderCode);
-        GLES20.glCompileShader(ref);
+        int ref = glCreateShader(type);
+        glShaderSource(ref, shaderCode);
+        glCompileShader(ref);
         return ref;
     }
 
@@ -140,6 +145,7 @@ class ParticleRenderer implements GLSurfaceView.Renderer {
         Matrix.multiplyMM(projectionViewM, 0, projectionM, 0, viewM, 0);
     }
 
+
     @Override
     public void onDrawFrame(GL10 unused) {
         if (particleSystem == null) {
@@ -153,17 +159,22 @@ class ParticleRenderer implements GLSurfaceView.Renderer {
             setupTextures();
             textureAtlasNeedsSetup = false;
         }
+        long time = System.nanoTime();
+        if (lastUpdateTime == 0) {
+            lastUpdateTime = time;
+        }
+        particleSystem.update((time - lastUpdateTime) / NANOSECONDS);
+        updateBuffers(particleSystem.getParticles());
+        render(particleSystem.getParticles().size());
         if (fpsLogEnabled) {
             logFps();
         }
-        particleSystem.update();
-        updateBuffers(particleSystem.getParticles());
-        render(particleSystem.getParticles().size());
+        lastUpdateTime = time;
     }
 
     private void logFps() {
         fps++;
-        if (System.nanoTime() - fpsMark >= 1000000000) {
+        if (System.nanoTime() - fpsMark >= NANOSECONDS) {
             Log.d("ParticleView", "fps: " + fps);
             fps = 0;
             fpsMark = System.nanoTime();

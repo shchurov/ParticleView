@@ -1,3 +1,7 @@
 <resources>
-    <style name="AppTheme" parent="Theme.AppCompat.NoActionBar"/>
+
+    <style name="AppTheme" parent="Theme.AppCompat.NoActionBar">
+        <item name="android:windowBackground">@drawable/bg_window</item>
+        <item name="android:windowAnimationStyle">@null</item>
+    </style>
 </resources>
