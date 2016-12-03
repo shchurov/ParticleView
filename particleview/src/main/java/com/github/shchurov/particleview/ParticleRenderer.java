@@ -201,6 +201,7 @@ class ParticleRenderer implements GLSurfaceView.Renderer {
         for (int i = 0; i < regions.size(); i++) {
             TextureAtlas.Region r = regions.get(i);
             GLUtils.texSubImage2D(GL_TEXTURE_2D, 0, r.x, r.y, r.bitmap);
+            r.bitmap.recycle();
             float x0 = r.x / atlasWidth;
             float y0 = r.y / atlasHeight;
             float x1 = x0 + r.bitmap.getWidth() / atlasWidth;
@@ -267,7 +268,7 @@ class ParticleRenderer implements GLSurfaceView.Renderer {
             vertexArray[i * k1 + 6] = p.getX() + p.getDx1();
             vertexArray[i * k1 + 7] = surfaceHeight - p.getY() + p.getDy1();
 
-            System.arraycopy(textureCoordsCacheArray, p.getTexture() * k1, textureCoordsArray, i * k1, k1);
+            System.arraycopy(textureCoordsCacheArray, p.getTextureIndex() * k1, textureCoordsArray, i * k1, k1);
 
             alphaArray[i * k2] = p.getAlpha();
             alphaArray[i * k2 + 1] = p.getAlpha();

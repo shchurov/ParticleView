@@ -10,7 +10,7 @@ public class Particle {
     private float y;
     private float rotation;
     private float alpha = 1f;
-    private short texture;
+    private short textureIndex;
     private float halfDiagonal;
     private float dx1;
     private float dy1;
@@ -20,12 +20,12 @@ public class Particle {
     public Particle() {
     }
 
-    public Particle(float width, float height, float x, float y, int texture) {
+    public Particle(float width, float height, float x, float y, int textureIndex) {
         this.width = width;
         this.height = height;
         this.x = x;
         this.y = y;
-        this.texture = (short) texture;
+        this.textureIndex = (short) textureIndex;
         updateDiagonal();
         updateCorners();
     }
@@ -65,8 +65,8 @@ public class Particle {
         return alpha;
     }
 
-    public short getTexture() {
-        return texture;
+    public short getTextureIndex() {
+        return textureIndex;
     }
 
     float getDx1() {
@@ -110,8 +110,8 @@ public class Particle {
         updateCorners();
     }
 
-    public void setTexture(int texture) {
-        this.texture = (short) texture;
+    public void setTextureIndex(int textureIndex) {
+        this.textureIndex = (short) textureIndex;
     }
 
     public void setAlpha(float alpha) {
