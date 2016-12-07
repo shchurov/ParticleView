@@ -164,12 +164,12 @@ class ParticleRenderer implements GLSurfaceView.Renderer {
             lastUpdateTime = time;
         }
         particleSystem.update((time - lastUpdateTime) / NANOSECONDS);
+        lastUpdateTime = time;
         updateBuffers(particleSystem.getParticles());
         render(particleSystem.getParticles().size());
         if (fpsLogEnabled) {
             logFps();
         }
-        lastUpdateTime = time;
     }
 
     private void logFps() {
