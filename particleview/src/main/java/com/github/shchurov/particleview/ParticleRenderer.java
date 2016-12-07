@@ -205,7 +205,6 @@ class ParticleRenderer implements GLSurfaceView.Renderer {
             float y0 = r.y / atlasHeight;
             float x1 = x0 + r.bitmap.getWidth() / atlasWidth;
             float y1 = y0 + r.bitmap.getHeight() / atlasHeight;
-            r.bitmap.recycle();
             textureCoordsCacheArray[i * k] = x0;
             textureCoordsCacheArray[i * k + 1] = y0;
             textureCoordsCacheArray[i * k + 2] = x0;
