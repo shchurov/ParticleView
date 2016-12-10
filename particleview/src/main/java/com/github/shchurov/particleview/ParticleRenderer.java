@@ -11,6 +11,8 @@ import java.nio.ByteBuffer;
 import java.nio.ByteOrder;
 import java.nio.FloatBuffer;
 import java.nio.ShortBuffer;
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 import javax.microedition.khronos.egl.EGLConfig;
@@ -205,14 +207,13 @@ class ParticleRenderer implements GLSurfaceView.Renderer {
             float y0 = r.y / atlasHeight;
             float x1 = x0 + r.bitmap.getWidth() / atlasWidth;
             float y1 = y0 + r.bitmap.getHeight() / atlasHeight;
-            textureCoordsCacheArray[i * k] = x0;
-            textureCoordsCacheArray[i * k + 1] = y0;
-            textureCoordsCacheArray[i * k + 2] = x0;
-            textureCoordsCacheArray[i * k + 3] = y1;
-            textureCoordsCacheArray[i * k + 4] = x1;
-            textureCoordsCacheArray[i * k + 5] = y1;
-            textureCoordsCacheArray[i * k + 6] = x1;
-            textureCoordsCacheArray[i * k + 7] = y0;
+            List<Float> coords = Arrays.asList(x0, y0, x0, y1, x1, y1, x1, y0);
+            if (r.cwRotated) {
+                Collections.rotate(coords, 2);
+            }
+            for (int j = 0; j < coords.size(); j++) {
+                textureCoordsCacheArray[i * k + j] = coords.get(j);
+            }
         }
     }
 

@@ -34,21 +34,27 @@ public class TextureAtlas {
     }
 
     public int addRegion(int x, int y, Bitmap bitmap) {
+        return addRegion(x, y, false, bitmap);
+    }
+
+    public int addRegion(int x, int y, boolean cwRotated, Bitmap bitmap) {
         if (!editable) {
             throw new IllegalStateException("TextureAtlas is not editable anymore");
         }
-        regions.add(new Region(x, y, bitmap));
+        regions.add(new Region(x, y, cwRotated, bitmap));
         return regions.size() - 1;
     }
 
     static class Region {
         final int x;
         final int y;
+        final boolean cwRotated;
         final Bitmap bitmap;
 
-        Region(int x, int y, Bitmap bitmap) {
+        Region(int x, int y, boolean cwRotated, Bitmap bitmap) {
             this.x = x;
             this.y = y;
+            this.cwRotated = cwRotated;
             this.bitmap = bitmap;
         }
     }

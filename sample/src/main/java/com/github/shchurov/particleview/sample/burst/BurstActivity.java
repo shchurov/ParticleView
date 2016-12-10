@@ -8,9 +8,12 @@ import android.view.MotionEvent;
 import android.view.View;
 
 import com.github.shchurov.particleview.ParticleView;
+import com.github.shchurov.particleview.SimpleTextureAtlasPacker;
 import com.github.shchurov.particleview.TextureAtlas;
 import com.github.shchurov.particleview.sample.R;
-import com.github.shchurov.particleview.sample.SampleTextureAtlasFactory;
+
+import java.util.Arrays;
+import java.util.List;
 
 public class BurstActivity extends AppCompatActivity {
 
@@ -26,7 +29,7 @@ public class BurstActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_burst);
         particleView = (ParticleView) findViewById(R.id.particleView);
-        TextureAtlas textureAtlas = SampleTextureAtlasFactory.createTextureAtlas(getResources());
+        TextureAtlas textureAtlas = createTextureAtlas();
         final BurstParticleSystem particleSystem = new BurstParticleSystem();
         particleView.setTextureAtlas(textureAtlas);
         particleView.setParticleSystem(particleSystem);
@@ -40,6 +43,15 @@ public class BurstActivity extends AppCompatActivity {
                 return true;
             }
         });
+    }
+
+    private TextureAtlas createTextureAtlas() {
+        List<Integer> drawables = Arrays.asList(R.drawable.tex0, R.drawable.tex1, R.drawable.tex2, R.drawable.tex3,
+                R.drawable.tex4, R.drawable.tex5, R.drawable.tex6, R.drawable.tex7, R.drawable.tex8, R.drawable.tex9,
+                R.drawable.tex10, R.drawable.tex11, R.drawable.tex12, R.drawable.tex13, R.drawable.tex14,
+                R.drawable.tex15);
+        SimpleTextureAtlasPacker packer = new SimpleTextureAtlasPacker();
+        return packer.pack(drawables, getResources(), 300, 300);
     }
 
     @Override
