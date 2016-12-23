@@ -1,4 +1,4 @@
-# ParticleView
+# ParticleView (work in progress)
 ParticleView is a custom view that helps you visualizing 2D particle systems on Android.
 
 API aims to be generic and flexible giving you full control over the particles. ParticleView is implemented using OpenGL ES 2.0, resulting in significantly better performance than regular Canvas drawing.
