@@ -92,6 +92,7 @@ class ParticleRenderer implements GLSurfaceView.Renderer {
         initGlProgram();
         particleSystemNeedsSetup = true;
         textureAtlasNeedsSetup = true;
+        lastUpdateTime = 0;
     }
 
     private void initGl() {
@@ -146,7 +147,6 @@ class ParticleRenderer implements GLSurfaceView.Renderer {
         Matrix.setLookAtM(viewM, 0, 0f, 0f, 1f, 0f, 0f, 0f, 0f, 1f, 0f);
         Matrix.multiplyMM(projectionViewM, 0, projectionM, 0, viewM, 0);
     }
-
 
     @Override
     public void onDrawFrame(GL10 unused) {

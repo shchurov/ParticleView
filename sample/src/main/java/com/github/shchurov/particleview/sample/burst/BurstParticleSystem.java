@@ -11,6 +11,8 @@ import java.util.Queue;
 import java.util.Random;
 import java.util.concurrent.ConcurrentLinkedQueue;
 
+import static com.github.shchurov.particleview.sample.TextureAtlasFactory.TEXTURE_COUNT;
+
 class BurstParticleSystem implements ParticleSystem {
 
     private static final int MAX_P_COUNT = 3000;
@@ -41,11 +43,11 @@ class BurstParticleSystem implements ParticleSystem {
 
     @Override
     public void update(double timeDelta) {
-        updateParticles(timeDelta);
+        updateExistingParticles(timeDelta);
         pollOrigins();
     }
 
-    private void updateParticles(double timeDelta) {
+    private void updateExistingParticles(double timeDelta) {
         for (int i = 0; i < particles.size(); i++) {
             BurstParticle p = particles.get(i);
             if ((p.timeLeft -= timeDelta) < 0) {
@@ -67,7 +69,8 @@ class BurstParticleSystem implements ParticleSystem {
                 float vx = (random.nextBoolean() ? 1 : -1) * MAX_VX * random.nextFloat();
                 float vy = (random.nextBoolean() ? 1 : -1) * MAX_VY * random.nextFloat();
                 float vr = (random.nextBoolean() ? 1 : -1) * MAX_VR * random.nextFloat();
-                particles.add(new BurstParticle(origin.x, origin.y, random.nextInt(16), vx, vy, vr, BURST_DURATION));
+                particles.add(new BurstParticle(origin.x, origin.y, random.nextInt(TEXTURE_COUNT), vx, vy, vr,
+                        BURST_DURATION));
             }
         }
     }

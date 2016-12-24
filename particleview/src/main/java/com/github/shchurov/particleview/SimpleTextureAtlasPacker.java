@@ -5,7 +5,6 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Matrix;
 import android.graphics.Rect;
-import android.util.Log;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -44,7 +43,6 @@ public class SimpleTextureAtlasPacker {
             if (rotate) {
                 bmp = Bitmap.createBitmap(bmp, 0, 0, bmp.getWidth(), bmp.getHeight(), rotationMatrix, false);
             }
-            Log.d("OLOLO", "Out: " + out);
             atlas.addRegion(out.left + PADDING, out.top + PADDING, rotate, bmp);
             for (int i = 0; i < freeRects.size(); i++) {
                 if (splitRect(freeRects.get(i), out)) {

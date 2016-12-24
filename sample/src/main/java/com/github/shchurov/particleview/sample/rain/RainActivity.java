@@ -1,10 +1,10 @@
-package com.github.shchurov.particleview.sample.burst;
+package com.github.shchurov.particleview.sample.rain;
+
 
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.view.MotionEvent;
 import android.view.View;
 
 import com.github.shchurov.particleview.ParticleView;
@@ -12,32 +12,30 @@ import com.github.shchurov.particleview.TextureAtlas;
 import com.github.shchurov.particleview.sample.R;
 import com.github.shchurov.particleview.sample.TextureAtlasFactory;
 
-public class BurstActivity extends AppCompatActivity {
+public class RainActivity extends AppCompatActivity {
 
     private ParticleView particleView;
 
     public static void start(Context context) {
-        Intent i = new Intent(context, BurstActivity.class);
+        Intent i = new Intent(context, RainActivity.class);
         context.startActivity(i);
     }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_burst);
+        setContentView(R.layout.activity_rain);
         particleView = (ParticleView) findViewById(R.id.particleView);
         TextureAtlas textureAtlas = TextureAtlasFactory.createTextureAtlas(getResources());
-        final BurstParticleSystem particleSystem = new BurstParticleSystem();
+        final RainParticleSystem particleSystem = new RainParticleSystem();
         particleView.setTextureAtlas(textureAtlas);
-        particleView.setParticleSystem(particleSystem);
         particleView.setFpsLogEnabled(true);
-        particleView.setOnTouchListener(new View.OnTouchListener() {
+        final View vFloor = findViewById(R.id.vFloor);
+        vFloor.post(new Runnable() {
             @Override
-            public boolean onTouch(View v, MotionEvent event) {
-                if (event.getActionMasked() == MotionEvent.ACTION_DOWN) {
-                    particleSystem.addBurst(event.getX(), event.getY());
-                }
-                return true;
+            public void run() {
+                particleSystem.setDimensions(particleView.getWidth(), (int) vFloor.getY());
+                particleView.setParticleSystem(particleSystem);
             }
         });
     }

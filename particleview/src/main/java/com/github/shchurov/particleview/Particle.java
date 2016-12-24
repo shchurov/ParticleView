@@ -4,8 +4,8 @@ public class Particle {
 
     private static final double PI_4 = Math.PI / 4;
 
-    private float width;
-    private float height;
+    private int width;
+    private int height;
     private float x;
     private float y;
     private float rotation;
@@ -20,7 +20,7 @@ public class Particle {
     public Particle() {
     }
 
-    public Particle(float width, float height, float x, float y, int textureIndex) {
+    public Particle(int width, int height, float x, float y, int textureIndex) {
         this.width = width;
         this.height = height;
         this.x = x;
@@ -85,13 +85,13 @@ public class Particle {
         return dy2;
     }
 
-    public void setWidth(float width) {
+    public void setWidth(int width) {
         this.width = width;
         updateDiagonal();
         updateCorners();
     }
 
-    public void setHeight(float height) {
+    public void setHeight(int height) {
         this.height = height;
         updateDiagonal();
         updateCorners();

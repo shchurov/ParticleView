@@ -8,6 +8,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
+import static com.github.shchurov.particleview.sample.TextureAtlasFactory.TEXTURE_COUNT;
+
 class SpinnerParticleSystem implements ParticleSystem {
 
     private enum Stage {SHOW, SPIN, DISMISS, NONE}
@@ -27,7 +29,7 @@ class SpinnerParticleSystem implements ParticleSystem {
         for (int i = 0; i < P_COUNT; i++) {
             float spinRadius = (0.7f + random.nextFloat() * 0.3f) * spinnerRadius;
             float spinRotation = (float) (random.nextFloat() * 2 * Math.PI);
-            particles.add(new SpinnerParticle(random.nextInt(16), spinRadius, spinRotation));
+            particles.add(new SpinnerParticle(random.nextInt(TEXTURE_COUNT), spinRadius, spinRotation));
         }
     }
 

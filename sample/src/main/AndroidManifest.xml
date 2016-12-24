@@ -24,6 +24,10 @@
             android:name=".spinner.SpinnerActivity"
             android:screenOrientation="portrait"/>
 
+        <activity
+            android:name=".rain.RainActivity"
+            android:screenOrientation="portrait"/>
+
     </application>
 
 </manifest>
