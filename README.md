@@ -6,6 +6,8 @@ API aims to be generic and flexible giving you full control over the particles. 
 ![Sample 1](https://raw.githubusercontent.com/shchurov/ParticleView/master/github_assets/demo1.gif)
 
 ![Sample 2](https://raw.githubusercontent.com/shchurov/ParticleView/master/github_assets/demo2.gif)
+
+![Sample 3](https://raw.githubusercontent.com/shchurov/ParticleView/master/github_assets/demo3.gif)
 License
 -------
 
