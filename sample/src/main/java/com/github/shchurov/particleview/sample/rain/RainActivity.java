@@ -8,9 +8,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 
 import com.github.shchurov.particleview.ParticleView;
-import com.github.shchurov.particleview.TextureAtlas;
 import com.github.shchurov.particleview.sample.R;
-import com.github.shchurov.particleview.sample.TextureAtlasFactory;
+import com.github.shchurov.particleview.sample.SampleTextureAtlasFactory;
 
 public class RainActivity extends AppCompatActivity {
 
@@ -26,9 +25,8 @@ public class RainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_rain);
         particleView = (ParticleView) findViewById(R.id.particleView);
-        TextureAtlas textureAtlas = TextureAtlasFactory.createTextureAtlas(getResources());
         final RainParticleSystem particleSystem = new RainParticleSystem();
-        particleView.setTextureAtlas(textureAtlas);
+        particleView.setTextureAtlasFactory(new SampleTextureAtlasFactory(getResources()));
         particleView.setFpsLogEnabled(true);
         final View vFloor = findViewById(R.id.vFloor);
         vFloor.post(new Runnable() {

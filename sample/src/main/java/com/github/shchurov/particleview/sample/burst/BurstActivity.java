@@ -8,9 +8,8 @@ import android.view.MotionEvent;
 import android.view.View;
 
 import com.github.shchurov.particleview.ParticleView;
-import com.github.shchurov.particleview.TextureAtlas;
 import com.github.shchurov.particleview.sample.R;
-import com.github.shchurov.particleview.sample.TextureAtlasFactory;
+import com.github.shchurov.particleview.sample.SampleTextureAtlasFactory;
 
 public class BurstActivity extends AppCompatActivity {
 
@@ -26,9 +25,8 @@ public class BurstActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_burst);
         particleView = (ParticleView) findViewById(R.id.particleView);
-        TextureAtlas textureAtlas = TextureAtlasFactory.createTextureAtlas(getResources());
         final BurstParticleSystem particleSystem = new BurstParticleSystem();
-        particleView.setTextureAtlas(textureAtlas);
+        particleView.setTextureAtlasFactory(new SampleTextureAtlasFactory(getResources()));
         particleView.setParticleSystem(particleSystem);
         particleView.setFpsLogEnabled(true);
         particleView.setOnTouchListener(new View.OnTouchListener() {

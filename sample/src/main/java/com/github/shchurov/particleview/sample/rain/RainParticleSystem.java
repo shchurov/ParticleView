@@ -10,7 +10,7 @@ import java.util.List;
 import java.util.Queue;
 import java.util.Random;
 
-import static com.github.shchurov.particleview.sample.TextureAtlasFactory.TEXTURE_COUNT;
+import static com.github.shchurov.particleview.sample.SampleTextureAtlasFactory.TEXTURE_COUNT;
 
 class RainParticleSystem implements ParticleSystem {
 

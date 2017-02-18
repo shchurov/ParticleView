@@ -12,9 +12,8 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.github.shchurov.particleview.ParticleView;
-import com.github.shchurov.particleview.TextureAtlas;
 import com.github.shchurov.particleview.sample.R;
-import com.github.shchurov.particleview.sample.TextureAtlasFactory;
+import com.github.shchurov.particleview.sample.SampleTextureAtlasFactory;
 
 public class SpinnerActivity extends AppCompatActivity {
 
@@ -37,11 +36,10 @@ public class SpinnerActivity extends AppCompatActivity {
         particleView = (ParticleView) findViewById(R.id.particleView);
         tvLoading = (TextView) findViewById(R.id.tvLoading);
         btnStart = (Button) findViewById(R.id.btnStart);
-        TextureAtlas textureAtlas = TextureAtlasFactory.createTextureAtlas(getResources());
         int spinnerRadius = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, SPINNER_RADIUS_DP,
                 getResources().getDisplayMetrics());
         particleSystem = new SpinnerParticleSystem(spinnerRadius);
-        particleView.setTextureAtlas(textureAtlas);
+        particleView.setTextureAtlasFactory(new SampleTextureAtlasFactory(getResources()));
         particleView.setParticleSystem(particleSystem);
         btnStart.setOnClickListener(onClickListener);
     }

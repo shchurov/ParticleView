@@ -11,7 +11,7 @@ import java.util.Queue;
 import java.util.Random;
 import java.util.concurrent.ConcurrentLinkedQueue;
 
-import static com.github.shchurov.particleview.sample.TextureAtlasFactory.TEXTURE_COUNT;
+import static com.github.shchurov.particleview.sample.SampleTextureAtlasFactory.TEXTURE_COUNT;
 
 class BurstParticleSystem implements ParticleSystem {
 

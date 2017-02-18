@@ -21,18 +21,8 @@ public class ParticleView extends GlTextureView {
         setRenderMode(RENDERMODE_CONTINUOUSLY);
     }
 
-    @Override
-    public void onPause() {
-        super.onPause();
-    }
-
-    @Override
-    public void onResume() {
-        super.onResume();
-    }
-
-    public void setTextureAtlas(TextureAtlas atlas) {
-        renderer.setTextureAtlas(atlas);
+    public void setTextureAtlasFactory(TextureAtlasFactory factory) {
+        renderer.setTextureAtlasFactory(factory);
     }
 
     public void setParticleSystem(ParticleSystem system) {

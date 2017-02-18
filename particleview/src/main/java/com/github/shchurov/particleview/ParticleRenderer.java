@@ -67,7 +67,7 @@ class ParticleRenderer implements GLSurfaceView.Renderer {
 
     private volatile ParticleSystem particleSystem;
     private volatile boolean particleSystemNeedsSetup;
-    private volatile TextureAtlas textureAtlas;
+    private volatile TextureAtlasFactory textureAtlasFactory;
     private volatile boolean textureAtlasNeedsSetup;
     private int surfaceHeight;
     private int programRef;
@@ -118,9 +118,8 @@ class ParticleRenderer implements GLSurfaceView.Renderer {
         return ref;
     }
 
-    void setTextureAtlas(TextureAtlas atlas) {
-        this.textureAtlas = atlas;
-        atlas.setEditable(false);
+    void setTextureAtlasFactory(TextureAtlasFactory factory) {
+        this.textureAtlasFactory = factory;
         textureAtlasNeedsSetup = true;
     }
 
@@ -158,7 +157,9 @@ class ParticleRenderer implements GLSurfaceView.Renderer {
             particleSystemNeedsSetup = false;
         }
         if (textureAtlasNeedsSetup) {
-            setupTextures();
+            TextureAtlas atlas = textureAtlasFactory.createTextureAtlas();
+            atlas.setEditable(false);
+            setupTextures(atlas);
             textureAtlasNeedsSetup = false;
         }
         long time = System.nanoTime();
@@ -183,7 +184,7 @@ class ParticleRenderer implements GLSurfaceView.Renderer {
         }
     }
 
-    private void setupTextures() {
+    private void setupTextures(TextureAtlas atlas) {
         int[] names = new int[1];
         glGenTextures(1, names, 0);
         glActiveTexture(GL_TEXTURE0);
@@ -192,14 +193,14 @@ class ParticleRenderer implements GLSurfaceView.Renderer {
         glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
         glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
         glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
-        GLUtils.texImage2D(GL_TEXTURE_2D, 0, Bitmap.createBitmap(textureAtlas.getWidth(), textureAtlas.getHeight(),
+        GLUtils.texImage2D(GL_TEXTURE_2D, 0, Bitmap.createBitmap(atlas.getWidth(), atlas.getHeight(),
                 Bitmap.Config.ARGB_8888), 0);
 
-        List<TextureAtlas.Region> regions = textureAtlas.getRegions();
+        List<TextureAtlas.Region> regions = atlas.getRegions();
         textureCoordsCacheArray = new float[regions.size() * 8];
         final int k = 8;
-        float atlasWidth = textureAtlas.getWidth();
-        float atlasHeight = textureAtlas.getHeight();
+        float atlasWidth = atlas.getWidth();
+        float atlasHeight = atlas.getHeight();
         for (int i = 0; i < regions.size(); i++) {
             TextureAtlas.Region r = regions.get(i);
             GLUtils.texSubImage2D(GL_TEXTURE_2D, 0, r.x, r.y, r.bitmap);
