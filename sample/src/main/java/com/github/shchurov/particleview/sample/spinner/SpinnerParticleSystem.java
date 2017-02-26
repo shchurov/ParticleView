@@ -23,6 +23,7 @@ class SpinnerParticleSystem implements ParticleSystem {
     private volatile float cx;
     private volatile float cy;
     private float stageTime;
+    private volatile OnDismissEndListener endListener;
 
     SpinnerParticleSystem(int spinnerRadius) {
         Random random = new Random();
@@ -31,6 +32,10 @@ class SpinnerParticleSystem implements ParticleSystem {
             float spinRotation = (float) (random.nextFloat() * 2 * Math.PI);
             particles.add(new SpinnerParticle(random.nextInt(TEXTURE_COUNT), spinRadius, spinRotation));
         }
+    }
+
+    public void setOnDismissEndListener(OnDismissEndListener listener) {
+        endListener = listener;
     }
 
     @Override
@@ -64,6 +69,9 @@ class SpinnerParticleSystem implements ParticleSystem {
                 } else {
                     progressFactor = 0f;
                     stage = Stage.NONE;
+                    if (endListener != null) {
+                        endListener.onDismissEnd();
+                    }
                 }
                 stageTime = 0;
             }
@@ -90,6 +98,10 @@ class SpinnerParticleSystem implements ParticleSystem {
 
     void dismiss() {
         stage = Stage.DISMISS;
+    }
+
+    interface OnDismissEndListener {
+        void onDismissEnd();
     }
 
 }

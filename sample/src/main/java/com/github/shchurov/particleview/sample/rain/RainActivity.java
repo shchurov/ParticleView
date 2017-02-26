@@ -41,13 +41,13 @@ public class RainActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        particleView.onResume();
+        particleView.startRendering();
     }
 
     @Override
     protected void onPause() {
         super.onPause();
-        particleView.onPause();
+        particleView.stopRendering();
     }
 
 }

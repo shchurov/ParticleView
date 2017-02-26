@@ -212,6 +212,8 @@ public class GlTextureView extends TextureView implements TextureView.SurfaceTex
         }
         mRenderer = renderer;
         mGLThread = new GLThread(mThisWeakRef);
+        // ParticleView modification
+        mGLThread.mRequestPaused = true;
         mGLThread.start();
     }
 

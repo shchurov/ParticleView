@@ -23,6 +23,7 @@ public class SpinnerActivity extends AppCompatActivity {
     private Button btnStart;
     private TextView tvLoading;
     private SpinnerParticleSystem particleSystem;
+    private boolean spinnerVisible;
 
     public static void start(Context context) {
         Intent i = new Intent(context, SpinnerActivity.class);
@@ -47,30 +48,54 @@ public class SpinnerActivity extends AppCompatActivity {
     private View.OnClickListener onClickListener = new View.OnClickListener() {
         @Override
         public void onClick(View view) {
-            particleSystem.show(particleView.getWidth() / 2, particleView.getHeight() / 2);
-            btnStart.setVisibility(View.INVISIBLE);
-            tvLoading.setVisibility(View.VISIBLE);
+            showLoading();
             view.postDelayed(new Runnable() {
                 @Override
                 public void run() {
-                    particleSystem.dismiss();
-                    btnStart.setVisibility(View.VISIBLE);
-                    tvLoading.setVisibility(View.INVISIBLE);
+                    hideLoading();
                 }
             }, 4500);
         }
     };
 
+    private void showLoading() {
+        spinnerVisible = true;
+        particleSystem.show(particleView.getWidth() / 2, particleView.getHeight() / 2);
+        btnStart.setVisibility(View.INVISIBLE);
+        tvLoading.setVisibility(View.VISIBLE);
+        particleView.startRendering();
+    }
+
+    private void hideLoading() {
+        btnStart.setVisibility(View.VISIBLE);
+        tvLoading.setVisibility(View.INVISIBLE);
+        particleSystem.setOnDismissEndListener(new SpinnerParticleSystem.OnDismissEndListener() {
+            @Override
+            public void onDismissEnd() {
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        spinnerVisible = false;
+                        particleView.stopRendering();
+                    }
+                });
+            }
+        });
+        particleSystem.dismiss();
+    }
+
     @Override
     protected void onResume() {
         super.onResume();
-        particleView.onResume();
+        if (spinnerVisible) {
+            particleView.startRendering();
+        }
     }
 
     @Override
     protected void onPause() {
         super.onPause();
-        particleView.onPause();
+        particleView.stopRendering();
     }
 
 }
