@@ -26,8 +26,8 @@ public class ParticleView extends FrameLayout {
     }
 
     private void setupTextureView() {
-        glTextureView.setEGLConfigChooser(8, 8, 8, 8, 16, 0);
         glTextureView.setEGLContextClientVersion(2);
+        glTextureView.setEGLConfigChooser(8, 8, 8, 8, 16, 0);
         glTextureView.setOpaque(false);
         renderer = new ParticleRenderer();
         glTextureView.setRenderer(renderer);
