@@ -1,16 +1,46 @@
-# ParticleView (work in progress)
-ParticleView is a custom Android view that helps you displaying large number of sprites at the same time.
-
-API aims to be generic and flexible giving you full control over the scene. ParticleView is implemented using OpenGL ES 2.0, resulting in significantly better performance than regular Canvas drawing.
+# ParticleView 0.9.8
+Custom Android view that helps you displaying large number of sprites at the same time. Implemented using OpenGL ES 2.0, resulting in significantly better performance than regular Canvas drawing.
 
 ![Sample 1](https://raw.githubusercontent.com/shchurov/ParticleView/master/github_assets/demo1.gif)
+
+Installation
+-------
+Add jitpack.io repository to your **root** build.gradle:
+```groovy
+allprojects {
+ repositories {
+    jcenter()
+    maven { url "https://jitpack.io" }
+ }
+}
+```
+Add dependency to your **module** build.gradle:
+
+`compile 'com.github.shchurov:particleview:0.9.8'`
+
+Key components
+-------
+Component |  |
+--- | ---
+`ParticleView` | The view itself
+`Particle` | Keeps all the information about certain sprite (e.g., texture, position, size) 
+`ParticleSystem` | Keeps and updates particles over time
+`TextureAtlas` | Contains all the textures
+`TextureAtlasFactory` | Fires missiles on the other side of the Moon
+
+Getting started
+-------
+- Add `ParticleView` to your layout
+- Implement `ParticleSystem`, `TextureAtlasFactory` and bind them to the view
+- Call `ParticleView.startRendering()`
+
 
 ![Sample 2](https://raw.githubusercontent.com/shchurov/ParticleView/master/github_assets/demo2.gif)
 
 ![Sample 3](https://raw.githubusercontent.com/shchurov/ParticleView/master/github_assets/demo3.gif)
+
 License
 -------
-
     Copyright 2016 Mykhailo Shchurov
 
     Licensed under the Apache License, Version 2.0 (the "License");
