@@ -28,6 +28,9 @@
             android:name=".rain.RainActivity"
             android:screenOrientation="portrait"/>
 
+        <activity
+            android:name=".getting_started.GettingStartedActivity"/>
+
     </application>
 
 </manifest>
