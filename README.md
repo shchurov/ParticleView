@@ -30,12 +30,11 @@ Component |  |
 
 Getting started
 -------
+[Check GettingStarted sample](https://github.com/shchurov/ParticleView/blob/master/sample/src/main/java/com/github/shchurov/particleview/sample/getting_started/GettingStartedActivity.java)
+
 - Add `ParticleView` to your layout
 - Implement `ParticleSystem`, `TextureAtlasFactory` and bind them to the view
 - Call `ParticleView.startRendering()`
-
-[Check GettingStarted sample](https://github.com/shchurov/ParticleView/blob/master/sample/src/main/java/com/github/shchurov/particleview/sample/getting_started/GettingStartedActivity.java)
-
 
 ![Sample 2](https://raw.githubusercontent.com/shchurov/ParticleView/master/github_assets/demo2.gif)
 
