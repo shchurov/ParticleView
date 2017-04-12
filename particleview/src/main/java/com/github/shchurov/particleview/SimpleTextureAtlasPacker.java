@@ -34,16 +34,17 @@ public class SimpleTextureAtlasPacker {
     }
 
     public TextureAtlas pack(List<Bitmap> bitmaps, int atlasWidth, int atlasHeight) {
-        TextureAtlas atlas = new TextureAtlas(atlasWidth, atlasHeight);
         freeRects.add(new Rect(0, 0, atlasWidth, atlasHeight));
         List<Bitmap> sortedBitmaps = sortBitmaps(bitmaps);
         Rect out = new Rect();
+        List<Region> regions = new ArrayList<>();
         for (Bitmap bmp : sortedBitmaps) {
+            int index = bitmaps.indexOf(bmp);
             boolean rotate = findPositionForBitmap(bmp.getWidth() + 2 * PADDING, bmp.getHeight() + 2 * PADDING, out);
             if (rotate) {
                 bmp = Bitmap.createBitmap(bmp, 0, 0, bmp.getWidth(), bmp.getHeight(), rotationMatrix, false);
             }
-            atlas.addRegion(out.left + PADDING, out.top + PADDING, rotate, bmp);
+            regions.add(new Region(index, out.left + PADDING, out.top + PADDING, rotate, bmp));
             for (int i = 0; i < freeRects.size(); i++) {
                 if (splitRect(freeRects.get(i), out)) {
                     freeRects.remove(i--);
@@ -52,6 +53,11 @@ public class SimpleTextureAtlasPacker {
             cleanUpFreeRects();
         }
         freeRects.clear();
+        TextureAtlas atlas = new TextureAtlas(atlasWidth, atlasHeight);
+        List<Region> sortedRegions = sortRegionsToOriginalOrder(regions);
+        for (Region r : sortedRegions) {
+            atlas.addRegion(r.x, r.y, r.cwRotated, r.bitmap);
+        }
         return atlas;
     }
 
@@ -61,6 +67,17 @@ public class SimpleTextureAtlasPacker {
             @Override
             public int compare(Bitmap b1, Bitmap b2) {
                 return Math.max(b1.getWidth(), b1.getHeight()) - Math.max(b2.getWidth(), b2.getHeight());
+            }
+        });
+        return sorted;
+    }
+
+    private List<Region> sortRegionsToOriginalOrder(List<Region> regions) {
+        List<Region> sorted = new ArrayList<>(regions);
+        Collections.sort(sorted, new Comparator<Region>() {
+            @Override
+            public int compare(Region o1, Region o2) {
+                return o1.index - o2.index;
             }
         });
         return sorted;
@@ -141,6 +158,22 @@ public class SimpleTextureAtlasPacker {
                     freeRects.remove(j--);
                 }
             }
+    }
+
+    private class Region {
+        final int index;
+        final int x;
+        final int y;
+        final boolean cwRotated;
+        final Bitmap bitmap;
+
+        Region(int index, int x, int y, boolean cwRotated, Bitmap bitmap) {
+            this.index = index;
+            this.x = x;
+            this.y = y;
+            this.cwRotated = cwRotated;
+            this.bitmap = bitmap;
+        }
     }
 
 }

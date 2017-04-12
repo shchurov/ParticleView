@@ -11,8 +11,14 @@ class BurstParticle extends Particle {
     float vr;
     double timeLeft;
 
-    BurstParticle(float x, float y, int texture, float vx, float vy, float vr, double timeLeft) {
-        super(SIZE, SIZE, x, y, texture);
+    BurstParticle() {
+        super(SIZE, SIZE, 0, 0, 0);
+    }
+
+    void setup(float x, float y, int textureIndex, float vx, float vy, float vr, double timeLeft) {
+        setX(x);
+        setY(y);
+        setTextureIndex(textureIndex);
         this.vx = vx;
         this.vy = vy;
         this.vr = vr;

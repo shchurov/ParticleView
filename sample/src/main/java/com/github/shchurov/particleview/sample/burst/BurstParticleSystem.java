@@ -6,6 +6,7 @@ import com.github.shchurov.particleview.Particle;
 import com.github.shchurov.particleview.ParticleSystem;
 
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Queue;
 import java.util.Random;
@@ -26,6 +27,7 @@ class BurstParticleSystem implements ParticleSystem {
     private List<BurstParticle> particles = new ArrayList<>();
     private Queue<PointF> originsQueue = new ConcurrentLinkedQueue<>();
     private Random random = new Random();
+    private ParticlesPool pool = new ParticlesPool();
 
     @Override
     public int getMaxCount() {
@@ -52,6 +54,7 @@ class BurstParticleSystem implements ParticleSystem {
             BurstParticle p = particles.get(i);
             if ((p.timeLeft -= timeDelta) < 0) {
                 particles.remove(i--);
+                pool.recycle(p);
                 continue;
             }
             p.setX(p.getX() + (float) (p.vx * timeDelta));
@@ -69,10 +72,30 @@ class BurstParticleSystem implements ParticleSystem {
                 float vx = (random.nextBoolean() ? 1 : -1) * MAX_VX * random.nextFloat();
                 float vy = (random.nextBoolean() ? 1 : -1) * MAX_VY * random.nextFloat();
                 float vr = (random.nextBoolean() ? 1 : -1) * MAX_VR * random.nextFloat();
-                particles.add(new BurstParticle(origin.x, origin.y, random.nextInt(TEXTURE_COUNT), vx, vy, vr,
-                        BURST_DURATION));
+                BurstParticle p = pool.obtain(origin.x, origin.y, random.nextInt(TEXTURE_COUNT), vx, vy, vr,
+                        BURST_DURATION);
+                particles.add(p);
             }
         }
+    }
+
+    private class ParticlesPool {
+
+        Queue<BurstParticle> pool = new LinkedList<>();
+
+        BurstParticle obtain(float x, float y, int textureIndex, float vx, float vy, float vr, double timeLeft) {
+            BurstParticle p = pool.poll();
+            if (p == null) {
+                p = new BurstParticle();
+            }
+            p.setup(x, y, textureIndex, vx, vy, vr, timeLeft);
+            return p;
+        }
+
+        void recycle(BurstParticle p) {
+            pool.add(p);
+        }
+
     }
 
 }
