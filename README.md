@@ -1,4 +1,4 @@
-# ParticleView 0.9.8
+# ParticleView 0.9.9
 Custom Android view that helps you displaying large number of sprites at the same time. Implemented using OpenGL ES 2.0, resulting in significantly better performance than regular Canvas drawing.
 
 ![Sample 1](https://raw.githubusercontent.com/shchurov/ParticleView/master/github_assets/demo1.gif)
@@ -16,7 +16,7 @@ allprojects {
 ```
 Add dependency to your **module** build.gradle:
 
-`compile 'com.github.shchurov:particleview:0.9.8'`
+`compile 'com.github.shchurov:particleview:0.9.9'`
 
 Key components
 -------
@@ -37,8 +37,6 @@ Getting started
 - Call `ParticleView.startRendering()`
 
 ![Sample 2](https://raw.githubusercontent.com/shchurov/ParticleView/master/github_assets/demo2.gif)
-
-![Sample 3](https://raw.githubusercontent.com/shchurov/ParticleView/master/github_assets/demo3.gif)
 
 License
 -------
