@@ -33,8 +33,14 @@ Getting started
 [Check GettingStarted sample](https://github.com/shchurov/ParticleView/blob/master/sample/src/main/java/com/github/shchurov/particleview/sample/getting_started/GettingStartedActivity.java)
 
 - Add `ParticleView` to your layout
-- Implement `ParticleSystem`, `TextureAtlasFactory` and bind them to the view
+- Implement `TextureAtlasFactory`, `ParticleSystem` and bind them to the view
 - Call `ParticleView.startRendering()`
+
+Updating particles
+-------
+After you've called `startRendering()` `ParticleView` will start calling `ParticleSystem.update(double timeDelta)` before rendering every frame. There you're supposed to update your particles' state. `timeDelta` shows how much time has passed since the previous frame. Note that `ParticleSystem.update(double timeDelta)` is called from the rendering thread. 
+
+`ParticleSystem` has also `getParticles()` method where you return a reference to your particles and `getMaxCount()` where you return the maximum number of particles that you expect to be on the screen simultaneously. 
 
 ![Sample 2](https://raw.githubusercontent.com/shchurov/ParticleView/master/github_assets/demo2.gif)
 
