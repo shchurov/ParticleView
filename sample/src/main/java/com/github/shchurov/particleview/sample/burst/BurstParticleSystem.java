@@ -34,19 +34,15 @@ class BurstParticleSystem implements ParticleSystem {
         return MAX_P_COUNT;
     }
 
-    @Override
-    public List<? extends Particle> getParticles() {
-        return particles;
-    }
-
     void addBurst(float x, float y) {
         originsQueue.add(new PointF(x, y));
     }
 
     @Override
-    public void update(double timeDelta) {
+    public List<? extends Particle> update(double timeDelta) {
         updateExistingParticles(timeDelta);
         pollOrigins();
+        return particles;
     }
 
     private void updateExistingParticles(double timeDelta) {

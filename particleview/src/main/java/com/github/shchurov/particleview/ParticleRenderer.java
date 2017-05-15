@@ -81,6 +81,7 @@ class ParticleRenderer implements GLSurfaceView.Renderer {
     private float[] textureCoordsArray;
     private FloatBuffer textureCoordsBuffer;
     private long lastUpdateTime;
+    private List<? extends Particle> particles;
 
     private volatile boolean fpsLogEnabled;
     private long fps;
@@ -166,10 +167,10 @@ class ParticleRenderer implements GLSurfaceView.Renderer {
         if (lastUpdateTime == 0) {
             lastUpdateTime = time;
         }
-        particleSystem.update((time - lastUpdateTime) / NANOSECONDS);
+        particles = particleSystem.update((time - lastUpdateTime) / NANOSECONDS);
         lastUpdateTime = time;
-        updateBuffers(particleSystem.getParticles());
-        render(particleSystem.getParticles().size());
+        updateBuffers(particles);
+        render(particles.size());
         if (fpsLogEnabled) {
             logFps();
         }

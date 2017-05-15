@@ -6,8 +6,6 @@ public interface ParticleSystem {
 
     int getMaxCount();
 
-    List<? extends Particle> getParticles();
-
-    void update(double timeDelta);
+    List<? extends Particle> update(double timeDelta);
 
 }

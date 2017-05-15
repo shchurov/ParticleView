@@ -44,14 +44,9 @@ class SpinnerParticleSystem implements ParticleSystem {
     }
 
     @Override
-    public List<? extends Particle> getParticles() {
-        return particles;
-    }
-
-    @Override
-    public void update(double timeDelta) {
+    public List<? extends Particle> update(double timeDelta) {
         if (stage == Stage.NONE) {
-            return;
+            return particles;
         }
         float progressFactor = 1f;
         if (stage == Stage.SHOW || stage == Stage.DISMISS) {
@@ -77,6 +72,7 @@ class SpinnerParticleSystem implements ParticleSystem {
             }
         }
         updateParticles(timeDelta, progressFactor);
+        return particles;
     }
 
     private void updateParticles(double timeDelta, float progressFactor) {

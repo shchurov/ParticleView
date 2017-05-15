@@ -45,13 +45,9 @@ public class GettingStartedActivity extends AppCompatActivity {
         }
 
         @Override
-        public List<? extends Particle> getParticles() {
-            return particles;
-        }
-
-        @Override
-        public void update(double timeDelta) {
+        public List<? extends Particle> update(double timeDelta) {
             // static image
+            return particles;
         }
     };
 
