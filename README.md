@@ -1,10 +1,9 @@
-# ParticleView 0.9.9
+# ParticleView 0.9.10
 Custom Android view that helps you displaying large number of sprites at the same time. Implemented using OpenGL ES 2.0, resulting in significantly better performance than regular Canvas drawing.
 
 ![Sample 1](https://raw.githubusercontent.com/shchurov/ParticleView/master/github_assets/demo1.gif)
 
-Installation
--------
+## Installation
 Add jitpack.io repository to your **root** build.gradle:
 ```groovy
 allprojects {
@@ -16,10 +15,9 @@ allprojects {
 ```
 Add dependency to your **module** build.gradle:
 
-`compile 'com.github.shchurov:particleview:0.9.9'`
+`compile 'com.github.shchurov:particleview:0.9.10'`
 
-Key components
--------
+## Key components
 Component |  |
 --- | ---
 `ParticleView` | The view itself
@@ -28,24 +26,26 @@ Component |  |
 `TextureAtlas` | Contains all the textures
 `TextureAtlasFactory` | Fires missiles on the other side of the Moon
 
-Getting started
--------
+## Getting started
 [Check GettingStarted sample](https://github.com/shchurov/ParticleView/blob/master/sample/src/main/java/com/github/shchurov/particleview/sample/getting_started/GettingStartedActivity.java)
 
 - Add `ParticleView` to your layout
 - Implement `TextureAtlasFactory`, `ParticleSystem` and bind them to the view
 - Call `ParticleView.startRendering()`
 
-Updating particles
--------
-After you've called `startRendering()` `ParticleView` will start calling `ParticleSystem.update(double timeDelta)` before rendering every frame. There you're supposed to update your particles' state. `timeDelta` shows how much time has passed since the previous frame. Note that `ParticleSystem.update(double timeDelta)` is called from the rendering thread. 
+### Updating particles
+While active `ParticleView` will call `ParticleSystem.update(double timeDelta)` before every frame. Use this method to update your particles' state. Note that it's called from **rendering** thread. You will also need to implement `ParticleSystem.getMaxCount()` that represents the maximum number of particles which will be displayed at the same time. It's required for allocating buffers of sufficient size.
 
-`ParticleSystem` has also `getParticles()` method where you return a reference to your particles and `getMaxCount()` where you return the maximum number of particles that you expect to be on the screen simultaneously. 
+### Textures
+In order to optimize rendering performance all textures should be packed inside `TextureAtlas`. To do this, you need to create `TextureAtlas` and put bitmaps there using `TextureAtlas.addRegion(int x, int y, Bitmap bitmap)` so they do not overlap. The library contains helper class `SimpleTextureAtlasPacker` that takes a list of bitmaps and generates `TextureAtlas` for you. Although its implementation is quite "naive", it should perform well in most cases. At certain stages `ParticleView` needs to re-create `TextureAtlas`, for this purpose `TextureAtlasFactory` is used.
+
+### Some tips
+- Remember to call `ParticleView.stopRendering()` when its idle or invisible.
+- To achieve better performance consider reusing particle objects instead of creating new instances every time. [Check sample.](https://github.com/shchurov/ParticleView/blob/master/sample/src/main/java/com/github/shchurov/particleview/sample/burst/BurstParticleSystem.java)
 
 ![Sample 2](https://raw.githubusercontent.com/shchurov/ParticleView/master/github_assets/demo2.gif)
 
-License
--------
+## License
     Copyright 2016 Mykhailo Shchurov
 
     Licensed under the Apache License, Version 2.0 (the "License");
