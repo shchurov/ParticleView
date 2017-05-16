@@ -43,6 +43,11 @@ In order to optimize rendering performance all textures should be packed inside 
 - Remember to call `ParticleView.stopRendering()` when its idle or invisible.
 - To achieve better performance consider reusing particle objects instead of creating new instances every time. [Check sample.](https://github.com/shchurov/ParticleView/blob/master/sample/src/main/java/com/github/shchurov/particleview/sample/burst/BurstParticleSystem.java)
 
+### ToDo list
+- add support for multiple `TextureAtlas`es
+- prevent invalid method calls by throwing exceptions
+- improve built-in `SimpleTextureAtlasPacker`
+
 ![Sample 2](https://raw.githubusercontent.com/shchurov/ParticleView/master/github_assets/demo2.gif)
 
 ## License
