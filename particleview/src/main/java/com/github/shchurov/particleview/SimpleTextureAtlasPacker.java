@@ -12,6 +12,7 @@ import java.util.Comparator;
 import java.util.List;
 
 /**
+ * Use this class to automatically generate TextureAtlas
  * Based on: http://wiki.unity3d.com/index.php?title=MaxRectsBinPack
  */
 public class SimpleTextureAtlasPacker {
@@ -25,6 +26,12 @@ public class SimpleTextureAtlasPacker {
         rotationMatrix.postRotate(90);
     }
 
+    /**
+     * Generates TextureAtlas from a list of drawables. You also need to provide its width and height because
+     * current implementation can't calculate it automatically. Texture indices match with the order of textures in
+     * the list.
+     * @return generated TextureAtlas
+     */
     public TextureAtlas pack(List<Integer> drawableIds, Resources res, int atlasWidth, int atlasHeight) {
         List<Bitmap> bitmaps = new ArrayList<>();
         for (int id : drawableIds) {
@@ -33,6 +40,12 @@ public class SimpleTextureAtlasPacker {
         return pack(bitmaps, atlasWidth, atlasHeight);
     }
 
+    /**
+     * Generates TextureAtlas from a list of bitmaps. You also need to provide its width and height because
+     * current implementation can't calculate it automatically. Texture indices match with the order of textures in
+     * the list.
+     * @return generated TextureAtlas
+     */
     public TextureAtlas pack(List<Bitmap> bitmaps, int atlasWidth, int atlasHeight) {
         freeRects.add(new Rect(0, 0, atlasWidth, atlasHeight));
         List<Bitmap> sortedBitmaps = sortBitmaps(bitmaps);

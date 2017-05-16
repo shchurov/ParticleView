@@ -5,6 +5,10 @@ import android.graphics.Bitmap;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Container for all the textures that are being used. Consider using SimpleTextureAtlasPacker instead of creating
+ * it manually.
+ */
 public class TextureAtlas {
 
     private int width;
@@ -33,10 +37,26 @@ public class TextureAtlas {
         this.editable = editable;
     }
 
+    /**
+     * Adds bitmap as a region to this TextureAtlas. Keep in mind that textures shouldn't overlap. It's also a good
+     * practice to keep some padding around each texture to avoid "texture bleeding".
+     * @param x - X coordinate of region
+     * @param y - Y coordinate of region
+     * @return textureIndex that can be used as a reference to this texture
+     */
     public int addRegion(int x, int y, Bitmap bitmap) {
         return addRegion(x, y, false, bitmap);
     }
 
+    /**
+     * Adds bitmap as a region to this TextureAtlas. Keep in mind that textures shouldn't overlap. It's also a good
+     * practice to keep some padding around each texture to avoid "texture bleeding".
+     * @param x - X coordinate of region
+     * @param y - Y coordinate of region
+     * @param cwRotated - set to true if you want this texture to be 90 degree rotated inside atlas. It can be
+     *                  useful to optimize packing.
+     * @return textureIndex that can be used as a reference to this texture
+     */
     public int addRegion(int x, int y, boolean cwRotated, Bitmap bitmap) {
         if (!editable) {
             throw new IllegalStateException("TextureAtlas is not editable anymore");

@@ -1,5 +1,8 @@
 package com.github.shchurov.particleview;
 
+/**
+ * Base class that keeps state of sprite.
+ */
 public class Particle {
 
     private static final double PI_4 = Math.PI / 4;

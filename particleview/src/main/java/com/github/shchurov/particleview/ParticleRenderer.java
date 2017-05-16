@@ -1,6 +1,5 @@
 package com.github.shchurov.particleview;
 
-
 import android.graphics.Bitmap;
 import android.opengl.GLSurfaceView;
 import android.opengl.GLUtils;

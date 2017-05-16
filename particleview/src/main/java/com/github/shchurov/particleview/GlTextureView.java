@@ -22,8 +22,8 @@ import javax.microedition.khronos.egl.EGLSurface;
 import javax.microedition.khronos.opengles.GL;
 import javax.microedition.khronos.opengles.GL10;
 
-
 /**
+ * Internal class
  * Source: https://github.com/romannurik/muzei/blob/master/main/src/main/java/com/google/android/apps/muzei/render/GLTextureView.java
  */
 public class GlTextureView extends TextureView implements TextureView.SurfaceTextureListener {
