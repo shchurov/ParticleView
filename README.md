@@ -2,6 +2,8 @@
 Custom Android view that helps you displaying large number of sprites. Implemented using OpenGL ES 2.0, resulting in significantly better performance than regular Canvas drawing.
 
 ![Sample 1](https://raw.githubusercontent.com/shchurov/ParticleView/master/github_assets/demo1.gif)
+![Sample 2](https://raw.githubusercontent.com/shchurov/ParticleView/master/github_assets/demo2.gif)
+![Sample 3](https://raw.githubusercontent.com/shchurov/ParticleView/master/github_assets/demo3.gif)
 
 ## Installation
 Add jitpack.io repository to your **root** build.gradle:
@@ -47,8 +49,6 @@ In order to optimize rendering performance all textures should be packed inside 
 - add support for multiple `TextureAtlas`es
 - prevent invalid method calls by throwing exceptions
 - improve built-in `SimpleTextureAtlasPacker`
-
-![Sample 2](https://raw.githubusercontent.com/shchurov/ParticleView/master/github_assets/demo2.gif)
 
 ## License
     Copyright 2016 Mykhailo Shchurov
