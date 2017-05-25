@@ -52,6 +52,8 @@ In order to optimize rendering performance all textures should be packed inside 
 - add support for multiple `TextureAtlas`es
 - prevent invalid method calls by throwing exceptions
 - improve built-in `SimpleTextureAtlasPacker`
+- limit framerate to 60 keeping smoothness
+- add some extra optional effects (blur?)
 
 ## License
     Copyright 2016 Mykhailo Shchurov
