@@ -20,7 +20,6 @@ class BeamParticleSystem implements ParticleSystem {
     private static final float MAX_Y_VELOCITY = 300f;
 
     private int width;
-    private int height;
     private float spawnY;
     private float maxLightY;
     private List<BeamParticle> particles = new ArrayList<>();
@@ -30,7 +29,6 @@ class BeamParticleSystem implements ParticleSystem {
 
     BeamParticleSystem(int width, int height) {
         this.width = width;
-        this.height = height;
         spawnY = 0.74f * height;
         maxLightY = 0.52f * height;
     }
