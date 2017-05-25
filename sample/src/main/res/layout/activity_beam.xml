@@ -4,17 +4,15 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scaleType="centerCrop"
+        android:src="@drawable/background"/>
+
     <com.github.shchurov.particleview.ParticleView
         android:id="@+id/particleView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"/>
-
-    <View
-        android:id="@+id/vFloor"
-        android:layout_width="match_parent"
-        android:layout_height="5dp"
-        android:layout_gravity="bottom"
-        android:layout_marginBottom="80dp"
-        android:background="#a0ffffff"/>
 
 </FrameLayout>

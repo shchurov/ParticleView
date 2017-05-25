@@ -4,7 +4,6 @@ import android.graphics.Bitmap;
 import android.opengl.GLSurfaceView;
 import android.opengl.GLUtils;
 import android.opengl.Matrix;
-import android.util.Log;
 
 import java.nio.ByteBuffer;
 import java.nio.ByteOrder;
@@ -80,11 +79,6 @@ class ParticleRenderer implements GLSurfaceView.Renderer {
     private float[] textureCoordsArray;
     private FloatBuffer textureCoordsBuffer;
     private long lastUpdateTime;
-    private List<? extends Particle> particles;
-
-    private volatile boolean fpsLogEnabled;
-    private long fps;
-    private long fpsMark;
 
     @Override
     public void onSurfaceCreated(GL10 gl, EGLConfig config) {
@@ -128,10 +122,6 @@ class ParticleRenderer implements GLSurfaceView.Renderer {
         particleSystemNeedsSetup = true;
     }
 
-    void setFpsLogEnabled(boolean enabled) {
-        fpsLogEnabled = enabled;
-    }
-
     @Override
     public void onSurfaceChanged(GL10 gl, int width, int height) {
         glViewport(0, 0, width, height);
@@ -166,22 +156,10 @@ class ParticleRenderer implements GLSurfaceView.Renderer {
         if (lastUpdateTime == 0) {
             lastUpdateTime = time;
         }
-        particles = particleSystem.update((time - lastUpdateTime) / NANOSECONDS);
+        List<? extends Particle> particles = particleSystem.update((time - lastUpdateTime) / NANOSECONDS);
         lastUpdateTime = time;
         updateBuffers(particles);
         render(particles.size());
-        if (fpsLogEnabled) {
-            logFps();
-        }
-    }
-
-    private void logFps() {
-        fps++;
-        if (System.nanoTime() - fpsMark >= NANOSECONDS) {
-            Log.d("ParticleView", "fps: " + fps);
-            fps = 0;
-            fpsMark = System.nanoTime();
-        }
     }
 
     private void setupTextures(TextureAtlas atlas) {

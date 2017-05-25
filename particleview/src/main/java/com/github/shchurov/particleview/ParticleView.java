@@ -42,10 +42,6 @@ public class ParticleView extends FrameLayout {
         renderer.setParticleSystem(system);
     }
 
-    public void setFpsLogEnabled(boolean enabled) {
-        renderer.setFpsLogEnabled(enabled);
-    }
-
     public void startRendering() {
         glTextureView.onResume();
     }

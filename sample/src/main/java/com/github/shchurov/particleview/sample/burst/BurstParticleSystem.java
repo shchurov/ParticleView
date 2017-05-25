@@ -65,14 +65,17 @@ class BurstParticleSystem implements ParticleSystem {
             PointF origin = originsQueue.poll();
             int n = Math.min(BURST_P_COUNT, MAX_P_COUNT - particles.size());
             for (int i = 0; i < n; i++) {
-                float vx = (random.nextBoolean() ? 1 : -1) * MAX_VX * random.nextFloat();
-                float vy = (random.nextBoolean() ? 1 : -1) * MAX_VY * random.nextFloat();
-                float vr = (random.nextBoolean() ? 1 : -1) * MAX_VR * random.nextFloat();
-                BurstParticle p = pool.obtain(origin.x, origin.y, random.nextInt(TEXTURE_COUNT), vx, vy, vr,
-                        BURST_DURATION);
+                BurstParticle p = generateParticle(origin.x, origin.y);
                 particles.add(p);
             }
         }
+    }
+
+    private BurstParticle generateParticle(float x, float y) {
+        float vx = (random.nextBoolean() ? 1 : -1) * MAX_VX * random.nextFloat();
+        float vy = (random.nextBoolean() ? 1 : -1) * MAX_VY * random.nextFloat();
+        float vr = (random.nextBoolean() ? 1 : -1) * MAX_VR * random.nextFloat();
+        return pool.obtain(x, y, random.nextInt(TEXTURE_COUNT), vx, vy, vr, BURST_DURATION);
     }
 
     private class ParticlesPool {

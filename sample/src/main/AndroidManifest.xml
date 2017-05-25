@@ -27,6 +27,11 @@
         <activity
             android:name=".getting_started.GettingStartedActivity"/>
 
+        <activity
+            android:name=".light.BeamActivity"
+            android:screenOrientation="portrait"/>
+
+
     </application>
 
 </manifest>

@@ -28,7 +28,6 @@ public class BurstActivity extends AppCompatActivity {
         final BurstParticleSystem particleSystem = new BurstParticleSystem();
         particleView.setTextureAtlasFactory(new SampleTextureAtlasFactory(getResources()));
         particleView.setParticleSystem(particleSystem);
-        particleView.setFpsLogEnabled(true);
         particleView.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {

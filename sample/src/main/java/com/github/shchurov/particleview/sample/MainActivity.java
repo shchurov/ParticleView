@@ -9,6 +9,7 @@ import android.view.View;
 import com.github.shchurov.particleview.sample.burst.BurstActivity;
 import com.github.shchurov.particleview.sample.getting_started.GettingStartedActivity;
 import com.github.shchurov.particleview.sample.spinner.SpinnerActivity;
+import com.github.shchurov.particleview.sample.light.BeamActivity;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -32,6 +33,12 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 SpinnerActivity.start(MainActivity.this);
+            }
+        });
+        findViewById(R.id.btnFlashlight).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                BeamActivity.start(MainActivity.this);
             }
         });
     }
