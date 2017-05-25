@@ -1,9 +1,12 @@
 # ParticleView 0.9.12
 Custom Android view that helps you displaying large number of sprites. Implemented using OpenGL ES 2.0, resulting in significantly better performance than regular Canvas drawing.
 
-![Sample 1](https://raw.githubusercontent.com/shchurov/ParticleView/master/github_assets/demo1.gif)
-![Sample 2](https://raw.githubusercontent.com/shchurov/ParticleView/master/github_assets/demo2.gif)
-![Sample 3](https://raw.githubusercontent.com/shchurov/ParticleView/master/github_assets/demo3.gif)
+<p align="center">
+<img src="./github_assets/demo1.gif" alt="Demo 1" width="200" />
+<img src="./github_assets/demo2.gif" alt="Demo 2" width="200" />
+<img src="./github_assets/demo3.gif" alt="Demo 3" width="200" />
+<img src="./github_assets/demo4.gif" alt="Demo 4" width="200" />
+<p/>
 
 ## Installation
 Add jitpack.io repository to your **root** build.gradle:
